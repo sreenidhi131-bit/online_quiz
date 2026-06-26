@@ -1,14 +1,89 @@
-let userName = "";
-let current = 0;
-let score = 0;
-let timer;
-let timeLeft = 15;
-let quiz = [];
-//let selectedCategory = "";
-let selectedBranch = "";
-let selectedSubject = "";
-
+// KEEP YOUR quizData ABOVE THIS
 const quizData = {
+MCA:{
+CProgramming: [
+{q:"C language was developed by?",a:"Dennis Ritchie",b:"James Gosling",c:"Bjarne Stroustrup",d:"Guido van Rossum",cAns:"a"},
+{q:"Which symbol is used to end a statement in C?",a:":",b:";",c:",",d:".",cAns:"b"},
+{q:"Which function is used to display output?",a:"input()",b:"printf()",c:"display()",d:"show()",cAns:"b"},
+{q:"Which function is used to take input?",a:"scanf()",b:"input()",c:"cin",d:"read()",cAns:"a"},
+{q:"Which header file is commonly used for input and output?",a:"math.h",b:"stdio.h",c:"string.h",d:"conio.h",cAns:"b"},
+{q:"Which data type stores whole numbers?",a:"float",b:"char",c:"int",d:"double",cAns:"c"},
+{q:"Which loop executes at least once?",a:"for",b:"while",c:"do while",d:"foreach",cAns:"c"},
+{q:"Which operator is used for assignment?",a:"==",b:"=",c:"!=",d:"<=",cAns:"b"},
+{q:"Which keyword is used to define a constant?",a:"constant",b:"final",c:"#define",d:"const",cAns:"d"},
+{q:"What is the extension of a C program file?",a:".cpp",b:".java",c:".c",d:".py",cAns:"c"}
+],
+Java: [
+
+{q:"Java was developed by?",a:"James Gosling",b:"Dennis Ritchie",c:"Bjarne Stroustrup",d:"Guido van Rossum",cAns:"a"},
+
+{q:"Java is a ___ language.",a:"Procedural",b:"Object Oriented",c:"Markup",d:"Query",cAns:"b"},
+
+{q:"Which keyword is used to create an object?",a:"create",b:"new",c:"object",d:"class",cAns:"b"},
+
+{q:"Which method is the entry point of a Java program?",a:"start()",b:"main()",c:"run()",d:"execute()",cAns:"b"},
+
+{q:"Which package is automatically imported in Java?",a:"java.io",b:"java.lang",c:"java.util",d:"java.net",cAns:"b"},
+
+{q:"Which symbol is used to end a statement in Java?",a:":",b:";",c:",",d:".",cAns:"b"},
+
+{q:"Which data type stores decimal values?",a:"int",b:"char",c:"float",d:"boolean",cAns:"c"},
+
+{q:"Which keyword is used for inheritance?",a:"extends",b:"implements",c:"inherits",d:"super",cAns:"a"},
+
+{q:"Which loop is used when the number of iterations is known?",a:"while",b:"do while",c:"for",d:"foreach",cAns:"c"},
+
+{q:"Java source file extension is?",a:".java",b:".class",c:".js",d:".jar",cAns:"a"}
+
+],
+OS: [
+
+{q:"Operating System is a?",a:"Application Software",b:"System Software",c:"Programming Language",d:"Database",cAns:"b"},
+
+{q:"Which of the following is an Operating System?",a:"Windows",b:"MS Word",c:"Chrome",d:"Photoshop",cAns:"a"},
+
+{q:"Which OS is open source?",a:"Windows",b:"Linux",c:"macOS",d:"DOS",cAns:"b"},
+
+{q:"Which scheduling algorithm works on First Come First Serve?",a:"FCFS",b:"Round Robin",c:"Priority",d:"SJF",cAns:"a"},
+
+{q:"Which component manages memory?",a:"Compiler",b:"Operating System",c:"Browser",d:"Database",cAns:"b"},
+
+{q:"Which memory is temporary?",a:"ROM",b:"RAM",c:"Hard Disk",d:"SSD",cAns:"b"},
+
+{q:"What does CPU stand for?",a:"Central Process Unit",b:"Central Processing Unit",c:"Control Processing Unit",d:"Computer Processing Unit",cAns:"b"},
+
+{q:"Which OS feature allows multiple tasks simultaneously?",a:"Multiprogramming",b:"Formatting",c:"Compiling",d:"Encryption",cAns:"a"},
+
+{q:"Which command is used to create a directory in Linux?",a:"mkdir",b:"rmdir",c:"cd",d:"dir",cAns:"a"},
+
+{q:"Which state comes after Ready state in process execution?",a:"Running",b:"Waiting",c:"Blocked",d:"Terminated",cAns:"a"}
+
+],
+
+WebApplication: [
+
+{q:"What is a Web Application?",a:"Desktop Software",b:"Application accessed through a browser",c:"Operating System",d:"Database",cAns:"b"},
+
+{q:"Which language is used to structure web pages?",a:"Java",b:"HTML",c:"Python",d:"SQL",cAns:"b"},
+
+{q:"Which language is mainly used for styling web pages?",a:"CSS",b:"C",c:"Java",d:"PHP",cAns:"a"},
+
+{q:"Which language is used to add interactivity to websites?",a:"JavaScript",b:"HTML",c:"SQL",d:"XML",cAns:"a"},
+
+{q:"Which protocol is used for web communication?",a:"FTP",b:"SMTP",c:"HTTP",d:"TCP",cAns:"c"},
+
+{q:"Which HTML tag is used to create a form?",a:"<form>",b:"<input>",c:"<table>",d:"<body>",cAns:"a"},
+
+{q:"Which CSS property changes text color?",a:"font-color",b:"text-color",c:"color",d:"background",cAns:"c"},
+
+{q:"Which JavaScript function displays a popup message?",a:"print()",b:"popup()",c:"alert()",d:"show()",cAns:"c"},
+
+{q:"Which database language is commonly used with web applications?",a:"SQL",b:"C",c:"Python",d:"XML",cAns:"a"},
+
+{q:"Which technology is used to connect frontend and backend?",a:"API",b:"Compiler",c:"Editor",d:"Browser",cAns:"a"}
+
+]
+},
 CSE:{
 html: [
 {q:"HTML stands for?",a:"Hyper Text Markup Language",b:"High Text Machine Language",c:"Hyper Tool ML",d:"None",cAns:"a"},
@@ -130,10 +205,180 @@ Machines: [
 
 ]
 
+},
+Civil:{
+
+StructuralEngineering: [
+
+{q:"Which material is mainly used in RCC?",a:"Wood",b:"Steel and Concrete",c:"Plastic",d:"Glass",cAns:"b"},
+
+{q:"RCC stands for?",a:"Reinforced Cement Concrete",b:"Rapid Cement Concrete",c:"Ready Concrete Construction",d:"Road Construction Concrete",cAns:"a"},
+
+{q:"Which instrument is used for measuring angles in surveying?",a:"Theodolite",b:"Compass",c:"Barometer",d:"Scale",cAns:"a"},
+
+{q:"Which cement is commonly used in construction?",a:"White Cement",b:"Ordinary Portland Cement",c:"Quick Cement",d:"Natural Cement",cAns:"b"},
+
+{q:"Foundation is used to?",a:"Support the structure",b:"Paint the building",c:"Increase height",d:"Decorate walls",cAns:"a"},
+
+{q:"Which beam carries load mainly by bending?",a:"Cantilever Beam",b:"Flexural Beam",c:"Column",d:"Slab",cAns:"b"},
+
+{q:"Unit of force is?",a:"Pascal",b:"Newton",c:"Watt",d:"Joule",cAns:"b"},
+
+{q:"Which test is used to determine concrete strength?",a:"Compression Test",b:"Tensile Test",c:"Impact Test",d:"Hardness Test",cAns:"a"},
+
+{q:"Which structure supports vertical loads?",a:"Column",b:"Door",c:"Window",d:"Pipe",cAns:"a"},
+
+{q:"Which type of load acts permanently on a structure?",a:"Dead Load",b:"Live Load",c:"Wind Load",d:"Earthquake Load",cAns:"a"}
+
+]
+
+},
+Mechanical:{
+
+Thermodynamics: [
+
+{q:"Thermodynamics deals with?",a:"Heat and Energy",b:"Electricity",c:"Programming",d:"Construction",cAns:"a"},
+
+{q:"Which law states energy cannot be created or destroyed?",a:"Zeroth Law",b:"First Law",c:"Second Law",d:"Third Law",cAns:"b"},
+
+{q:"SI unit of temperature is?",a:"Celsius",b:"Kelvin",c:"Fahrenheit",d:"Joule",cAns:"b"},
+
+{q:"Heat always flows from?",a:"Cold to Hot",b:"Hot to Cold",c:"Equal Temperature",d:"None",cAns:"b"},
+
+{q:"Which device converts heat energy into mechanical work?",a:"Engine",b:"Transformer",c:"Generator",d:"Battery",cAns:"a"},
+
+{q:"The efficiency of an ideal heat engine is given by?",a:"Carnot Efficiency",b:"Newton Law",c:"Ohm Law",d:"Hooke Law",cAns:"a"},
+
+{q:"What is the SI unit of pressure?",a:"Watt",b:"Pascal",c:"Newton",d:"Joule",cAns:"b"},
+
+{q:"Boiling point of water at standard pressure?",a:"50°C",b:"100°C",c:"150°C",d:"212°C",cAns:"b"},
+
+{q:"A closed system allows transfer of?",a:"Mass only",b:"Energy only",c:"Mass and Energy",d:"Neither",cAns:"b"},
+
+{q:"Internal energy is represented by?",a:"Q",b:"U",c:"W",d:"P",cAns:"b"}
+
+]
+
+},
+AIML:{
+
+MachineLearning: [
+
+{q:"What does AI stand for?",a:"Artificial Intelligence",b:"Automated Information",c:"Advanced Interface",d:"Artificial Integration",cAns:"a"},
+
+{q:"Machine Learning is a subset of?",a:"Database",b:"Artificial Intelligence",c:"Networking",d:"Operating System",cAns:"b"},
+
+{q:"Which type of learning uses labeled data?",a:"Supervised Learning",b:"Unsupervised Learning",c:"Reinforcement Learning",d:"Deep Learning",cAns:"a"},
+
+{q:"Which algorithm is used for classification?",a:"KNN",b:"Apriori",c:"K-Means",d:"PCA",cAns:"a"},
+
+{q:"K in KNN stands for?",a:"Knowledge",b:"Kernel",c:"Nearest Neighbors",d:"Key",cAns:"c"},
+
+{q:"Which algorithm groups similar data?",a:"Decision Tree",b:"K-Means",c:"Linear Regression",d:"Naive Bayes",cAns:"b"},
+
+{q:"Decision Tree is mainly used for?",a:"Classification",b:"Storage",c:"Encryption",d:"Networking",cAns:"a"},
+
+{q:"Which metric is commonly used for regression?",a:"Accuracy",b:"Mean Squared Error",c:"Precision",d:"Recall",cAns:"b"},
+
+{q:"Which library is popular for Machine Learning in Python?",a:"NumPy",b:"Scikit-learn",c:"Tkinter",d:"Flask",cAns:"b"},
+
+{q:"What does CNN stand for in Deep Learning?",a:"Convolutional Neural Network",b:"Central Neural Network",c:"Computer Neural Node",d:"Convolution Number Network",cAns:"a"}
+
+]
+
+},
+CSBS:{
+
+BusinessAnalytics: [
+
+{q:"What does CSBS stand for?",a:"Computer Science and Business Systems",b:"Computer Software Business Studies",c:"Computer System Business Science",d:"Corporate Business Software",cAns:"a"},
+
+{q:"Business Analytics is mainly used for?",a:"Decision Making",b:"Gaming",c:"Networking",d:"Compiling",cAns:"a"},
+
+{q:"Which language is widely used for data analysis?",a:"Python",b:"HTML",c:"CSS",d:"C",cAns:"a"},
+
+{q:"Which tool is commonly used for business reports?",a:"Excel",b:"Photoshop",c:"AutoCAD",d:"VS Code",cAns:"a"},
+
+{q:"What does KPI stand for?",a:"Key Performance Indicator",b:"Knowledge Process Indicator",c:"Key Program Integration",d:"Knowledge Product Index",cAns:"a"},
+
+{q:"Which chart is best for showing trends over time?",a:"Line Chart",b:"Pie Chart",c:"Bar Chart",d:"Scatter Plot",cAns:"a"},
+
+{q:"Which database language is used to retrieve data?",a:"HTML",b:"SQL",c:"Java",d:"CSS",cAns:"b"},
+
+{q:"Which process finds patterns in data?",a:"Data Mining",b:"Formatting",c:"Debugging",d:"Compiling",cAns:"a"},
+
+{q:"Which term describes raw facts and figures?",a:"Information",b:"Knowledge",c:"Data",d:"Analytics",cAns:"c"},
+
+{q:"Which dashboard metric helps monitor business performance?",a:"KPI",b:"Compiler",c:"CPU",d:"Cache",cAns:"a"}
+
+]
+
 }
 
 };
-function signup(){
+let userName="";
+let current=0;
+let score=0;
+let quiz=[];
+let timer;
+let timeLeft=30;
+
+let selectedBranch="";
+let selectedSubject="";
+let selectedCourse = "";
+
+// ---------- SIGNUP ----------
+
+async function signup(){
+
+let username=
+document.getElementById("username").value.trim();
+
+let password=
+document.getElementById("password").value.trim();
+console.log(username);
+console.log(password);
+
+if(!username || !password){
+
+showMessage(
+"Enter username and password",
+"red"
+);
+
+return;
+
+}
+
+try {
+
+    let formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+
+    let res = await fetch("signup.php", {
+        method: "POST",
+        body: formData
+    });
+
+    let msg = await res.text();
+
+    showMessage(msg, "green");
+	document.getElementById("username").value = "";
+document.getElementById("password").value = "";
+
+}
+catch {
+
+    showMessage("Signup Failed", "red");
+
+}
+}
+
+
+// ---------- LOGIN ----------
+
+async function login(){
 
     let username =
     document.getElementById("username").value.trim();
@@ -141,369 +386,580 @@ function signup(){
     let password =
     document.getElementById("password").value.trim();
 
-    if(username === "" || password === ""){
+    if(!username || !password){
 
         showMessage(
-            "Please fill all fields",
-            "red"
+        "Enter username and password",
+        "red"
         );
+
         return;
     }
 
-    let users =
-    JSON.parse(localStorage.getItem("quizUsers"))
-    || {};
+    try {
 
-    if(users[username]){
+        let formData = new FormData();
+        formData.append("username", username);
+        formData.append("password", password);
 
-        showMessage(
-            "Username already exists",
-            "red"
-        );
-        return;
+        let res = await fetch("login.php", {
+            method: "POST",
+            body: formData
+        });
+
+        let user = await res.json();
+
+        if(user.success){
+
+		userName = user.username;
+
+		localStorage.setItem("loggedInUser",userName);
+
+		document.getElementById("startScreen").classList.add("hidden");
+		document.getElementById("dashboardScreen").classList.remove("hidden");
+
+		initializeUser();
+		loadDashboard();
+
+		}
+        else{
+
+            showMessage(user.message, "white");
+
+        }
+
+    }
+    catch{
+
+        showMessage("Server Error", "white");
+
     }
 
-    users[username] = {
-        password: password,
-        lastScore: 0,
-        bestScore: 0
-    };
-
-    localStorage.setItem(
-        "quizUsers",
-        JSON.stringify(users)
-    );
-
-    showMessage(
-        "Signup Successful ✅ Please Login",
-        "green"
-    );
-
-    document.getElementById("username").value = "";
-    document.getElementById("password").value = "";
 }
-function login(){
 
-    let username =
-    document.getElementById("username").value.trim();
 
-    let password =
-    document.getElementById("password").value.trim();
+// ---------- USER ----------
 
-    let users =
-    JSON.parse(localStorage.getItem("quizUsers"))
-    || {};
+function initializeUser(){
 
-    if(
-        users[username] &&
-        users[username].password === password
-    ){
+let users=
+JSON.parse(
+localStorage.getItem(
+"quizUsers"
+)
+)||{};
 
-        userName = username;
+if(!users[userName]){
 
-        showMessage(
-            "Login Successful ✅",
-            "green"
-        );
+users[userName]={
 
-        setTimeout(()=>{
+lastScore:0,
+bestScore:0
 
-            document
-            .getElementById("startScreen")
-            .classList.add("hidden");
+};
 
-            document
-            .getElementById("dashboardScreen")
-            .classList.remove("hidden");
-
-            loadDashboard();
-
-        },1000);
-
-    }
-    else{
-
-        showMessage(
-            "Invalid Username or Password ❌",
-            "red"
-        );
-    }
 }
+
+localStorage.setItem(
+"quizUsers",
+JSON.stringify(users)
+);
+
+}
+
+
 function loadDashboard(){
 
-    document.getElementById(
-        "dashboardUser"
-    ).innerText = userName;
+let users=
+JSON.parse(
+localStorage.getItem(
+"quizUsers"
+)
+)||{};
 
-    let users =
-    JSON.parse(localStorage.getItem("quizUsers"))
-    || {};
+let user =
+users[userName] || {
+lastScore:0,
+bestScore:0
+};
+document
+.getElementById(
+"dashboardUser"
+)
+.innerText=
+userName;
 
-    let user =
-    users[userName];
+document
+.getElementById(
+"lastScore"
+)
+.innerText=
+`🏆 Last Score : ${user.lastScore}`;
 
-    document.getElementById(
-        "lastScore"
-    ).innerText =
-    `🏆 Last Score : ${user.lastScore}`;
+document
+.getElementById(
+"bestScore"
+)
+.innerText=
+`⭐ Best Score : ${user.bestScore}`;
 
-    document.getElementById(
-        "bestScore"
-    ).innerText =
-    `⭐ Best Score : ${user.bestScore}`;
+document
+.getElementById(
+"totalBranches"
+)
+.innerText=
+`📚 Total Categories : ${
+Object.keys(
+quizData
+).length
+}`;
+
 }
+
+
+// ---------- NAVIGATION ----------
+
 function openCategories(){
 
-    document.getElementById("dashboardScreen")
-    .classList.add("hidden");
+    hideAll();
 
-    document.getElementById("branchScreen")
+    document
+    .getElementById("courseScreen")
     .classList.remove("hidden");
+
+}
+
+function hideAll(){
+
+[
+"dashboardScreen",
+"courseScreen",
+"branchScreen",
+"subjectScreen",
+"quizScreen",
+"resultScreen"
+]
+
+.forEach(id=>{
+
+let el =
+document.getElementById(id);
+
+if(el){
+el.classList.add("hidden");
+}
+
+});
+
+}
+function selectCourse(course){
+
+selectedCourse = course;
+
+hideAll();
+
+document
+.getElementById("branchScreen")
+.classList.remove("hidden");
+
+let branches = [];
+
+if(course === "UG"){
+
+branches = [
+"Civil",
+"Mechanical",
+"EEE",
+"ECE",
+"CSE",
+"CSE(AIML)",
+"CSE(CSBS)",
+"EEE(VLSI)",
+"CSE(RAI)"
+];
+
+}
+else{
+
+branches = [
+"DECS",
+"CADS",
+"PES",
+"AIDS",
+"MCA"
+];
+
+}
+
+let html = "";
+
+branches.forEach(branch=>{
+
+html += `
+<button onclick="selectBranch('${branch}')">
+${branch}
+</button>
+`;
+
+});
+
+document.getElementById("branchHeading").innerText =
+course + " Branches";
+
+document.getElementById("branchButtons").innerHTML =
+html;
+
 }
 function selectBranch(branch){
 
-    selectedBranch = branch;
+selectedBranch=
+branch;
 
-    document.getElementById("branchScreen")
-    .classList.add("hidden");
+hideAll();
 
-    document.getElementById("subjectScreen")
-    .classList.remove("hidden");
+document
+.getElementById(
+"subjectScreen"
+)
+.classList.remove(
+"hidden"
+);
 
-    document.getElementById("branchTitle").innerText =
-    `${branch} Subjects`;
+document
+.getElementById(
+"branchTitle"
+)
+.innerText=
+branch+" Subjects";
 
-    let subjects =
-    Object.keys(quizData[branch]);
+let subjects=
+Object.keys(
+quizData[branch]
+);
 
-    let html = "";
+let html="";
 
-    subjects.forEach(subject=>{
+subjects.forEach(
 
-        html += `
-        <button onclick="startSubjectQuiz('${subject}')">
-            ${subject}
-        </button>
-        `;
-    });
+s=>{
 
-    document.getElementById("subjectButtons")
-    .innerHTML = html;
+html+=`
+
+<button
+onclick=
+"startSubjectQuiz('${s}')">
+
+${s}
+
+</button>
+
+`;
+
 }
+
+);
+
+document
+.getElementById(
+"subjectButtons"
+)
+.innerHTML=
+html;
+
+}
+function backToCourse(){
+
+hideAll();
+
+document
+.getElementById("courseScreen")
+.classList.remove("hidden");
+
+}
+
+
+function backToBranches(){
+
+hideAll();
+
+document
+.getElementById("branchScreen")
+.classList.remove("hidden");
+
+}
+// ---------- QUIZ ----------
+
 function startSubjectQuiz(subject){
 
-    selectedSubject = subject;
+selectedSubject=
+subject;
 
-    quiz = quizData[selectedBranch][subject];
+quiz=
+quizData
+[selectedBranch]
+[subject];
 
-    current = 0;
-    score = 0;
+current=0;
 
-    document.getElementById("subjectScreen")
-    .classList.add("hidden");
+score=0;
 
-    document.getElementById("quizScreen")
-    .classList.remove("hidden");
+hideAll();
 
-    document.getElementById("categoryTitle")
-    .innerText =
-    `${selectedBranch} - ${selectedSubject}`;
+document
+.getElementById(
+"quizScreen"
+)
+.classList.remove(
+"hidden"
+);
+document.getElementById("categoryTitle").innerText =
+selectedBranch + " - " + subject;
 
-    loadQuestion();
-}
+loadQuestion();
 
-function logoutUser(){
-
-    location.reload();
-}
-
-function showMessage(message,color){
-
-    let msg =
-    document.getElementById("authMessage");
-
-    msg.innerText = message;
-    msg.style.color = color;
-}
-
-function showCategories() {
-
-    userName = document.getElementById("username").value;
-
-    if(userName.trim() === ""){
-        alert("Please enter your name");
-        return;
-    }
-
-    document.getElementById("startScreen").classList.add("hidden");
-    document.getElementById("categoryScreen").classList.remove("hidden");
 }
 
 
 function loadQuestion(){
 
-    resetTimer();
+resetTimer();
 
-    let q = quiz[current];
+let q=
+quiz[current];
 
-    document.getElementById("question").innerText = q.q;
+document
+.getElementById(
+"question"
+)
+.innerText=q.q;
 
-    document.getElementById("a_text").innerText = q.a;
-    document.getElementById("b_text").innerText = q.b;
-    document.getElementById("c_text").innerText = q.c;
-    document.getElementById("d_text").innerText = q.d;
+["a","b","c","d"]
 
-    document.getElementById("progressText").innerText =
-    `Question ${current+1} / ${quiz.length}`;
+.forEach(
 
-    document.getElementById("progressBar").style.width =
-    ((current+1)/quiz.length)*100 + "%";
+id=>{
 
-    document.querySelectorAll("input").forEach(i => {
-        i.checked = false;
-    });
+document
+.getElementById(
+id+"_text"
+)
+.innerText=
+q[id];
+
+document
+.getElementById(
+id
+).checked=false;
+
 }
 
-function submitAnswer(){
+);
 
+let percent = ((current + 1) / quiz.length) * 100;
+
+document.getElementById("progressBar").style.width =
+percent + "%";
+}
+
+
+function submitAnswer(){
     clearInterval(timer);
 
-    let selected =
-    [...document.querySelectorAll('input[name="answer"]')]
-    .find(i => i.checked);
-
-    // If no answer selected
+    let selected = [...document.querySelectorAll('input[name="answer"]')].find(i => i.checked);
+    
+    // 1. If NO answer is selected, advance current safely
     if(!selected){
-
         current++;
 
         if(current < quiz.length){
-
             loadQuestion();
-
-        }else{
-
+        } else {
             showResult();
         }
-
-        return;
+        return; // Important: exits function early so it doesn't run the code below
     }
 
+    // 2. If an answer IS selected, check it BEFORE updating 'current'
     let ans = selected.id;
-
-    // Check answer
     if(ans === quiz[current].cAns){
-
         score++;
     }
 
     current++;
 
+    // 3. Move to next question or show results safely
     if(current < quiz.length){
-
         loadQuestion();
-
-    }else{
-
+    } else {
         showResult();
     }
 }
+
+
 function resetTimer(){
 
-    clearInterval(timer);
+clearInterval(
+timer
+);
 
-    timeLeft = 15;
+timeLeft=30;
 
-    document.getElementById("timer").innerText =
-    `⏱ ${timeLeft}s`;
+timer=
+setInterval(
 
-    timer = setInterval(()=>{
+()=>{
 
-        timeLeft--;
+timeLeft--;
 
-        document.getElementById("timer").innerText =
-        `⏱ ${timeLeft}s`;
+document
+.getElementById(
+"timer"
+)
+.innerText=
+`⏱ ${timeLeft}s`;
 
-        if(timeLeft <= 5){
+if(
+timeLeft<=0
+){
 
-            document.getElementById("timer").style.color = "red";
+submitAnswer();
 
-        }else{
-
-            document.getElementById("timer").style.color = "white";
-        }
-
-        if(timeLeft === 0){
-
-            submitAnswer();
-        }
-
-    },1000);
 }
+
+},
+
+1000
+
+);
+
+}
+
+
+// ---------- RESULT ----------
 
 function showResult(){
+    clearInterval(timer);
 
-    document.getElementById("quizScreen")
-    .classList.add("hidden");
+    // FIX: If userName is empty or undefined, use "Guest" so it never crashes
+    let activeUser = userName;
 
-    document.getElementById("resultScreen")
-    .classList.remove("hidden");
+    // Get current users from storage
+    let users = JSON.parse(localStorage.getItem("quizUsers")) || {};
 
-    let percent = (score/quiz.length)*100;
+    // SAFETY BLOCK: If the user doesn't exist in the data yet, create them right here.
+    // This stops the "Cannot set properties of undefined" crash completely!
+    if (!users[activeUser]) {
+        users[activeUser] = {
+            lastScore: 0,
+            bestScore: 0
+        };
+    }
 
-    // Save Scores
-   localStorage.setItem(
-    userName + "_lastScore",
-    score
-);
+    // Save scores safely using our activeUser variable
+    users[activeUser].lastScore = score;
 
-let users =
-JSON.parse(localStorage.getItem("quizUsers"))
-|| {};
+    if (score > (users[activeUser].bestScore || 0)) {
+        users[activeUser].bestScore = score;
+    }
 
-users[userName].lastScore = score;
+    localStorage.setItem("quizUsers", JSON.stringify(users));
 
-if(score > users[userName].bestScore){
+    // Change screen visibility
+    document.getElementById("quizScreen").classList.add("hidden");
+    document.getElementById("resultScreen").classList.remove("hidden");
 
-    users[userName].bestScore = score;
-}
+    let percentage = quiz && quiz.length ? ((score / quiz.length) * 100).toFixed(2) : "0.00";
 
-localStorage.setItem(
-    "quizUsers",
-    JSON.stringify(users)
-);
-    
-
+    // Render the certificate on screen
     document.getElementById("resultScreen").innerHTML = `
-
     <div class="certificate">
-
         <h1>🏆 Certificate</h1>
-
         <h2>${userName}</h2>
-
         <p>Successfully completed</p>
-
-       <h3>${selectedBranch} - ${selectedSubject} QUIZ</h3>
-        <p>Score : ${score} / ${quiz.length}</p>
-
-        <p>Percentage : ${percent}%</p>
-
-        <button onclick="goDashboard()">
-        Go To Dashboard
+        <h3>
+            ${selectedBranch || ""}
+            ${selectedSubject || ""}
+        </h3>
+        <p>
+            Score : ${score} / ${quiz.length}
+        </p>
+        <p>
+            Percentage : ${percentage}%
+        </p>
+        <button onclick="downloadReport()">
+            📄 Download Report
         </button>
-
+        <button onclick="goDashboard()">
+            Dashboard
+        </button>
     </div>
     `;
 }
-
 function goDashboard(){
 
-    document.getElementById("resultScreen")
-    .classList.add("hidden");
+hideAll();
 
-    document.getElementById("dashboardScreen")
-    .classList.remove("hidden");
+document
+.getElementById(
+"dashboardScreen"
+)
+.classList.remove(
+"hidden"
+);
 
-    loadDashboard();
+loadDashboard();
+
+}
+
+
+function logoutUser(){
+
+    userName = "";
+
+    document.getElementById("dashboardUser").innerText = "";
+
+    location.reload();
+
+}
+
+
+function showMessage(msg,color){
+
+let el=
+document.getElementById(
+"authMessage"
+);
+
+el.innerText=
+msg;
+
+el.style.color=
+color;
+}
+function downloadReport(){
+
+let report = `
+QUIZ REPORT
+====================
+
+Username : ${userName}
+Branch   : ${selectedBranch}
+Subject  : ${selectedSubject}
+
+Score    : ${score}/${quiz.length}
+
+Date     : ${new Date().toLocaleString()}
+`;
+
+let blob = new Blob([report], {
+   type: "application/msword"
+});
+
+let link = document.createElement("a");
+
+link.href = URL.createObjectURL(blob);
+
+link.download = `${userName}_Quiz_Report.doc`;
+
+link.click();
 }
